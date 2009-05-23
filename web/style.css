@@ -1,0 +1,26 @@
+/*
+ * Vimjuta 
+ */
+
+body {
+    width: 80%;
+    margin: auto;
+}
+
+table {
+    border: 0px
+}
+
+.light-0 {
+    background: #FFFFFF;
+}
+.light-1 {
+    background: #AAAAAA;
+}
+.dark-0 {
+    background: #E5E5E5;
+}
+.dark-1 {
+    background: #777777;
+}
+
