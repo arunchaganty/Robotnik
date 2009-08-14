@@ -11,7 +11,7 @@ class IRCDispatcher:
     EVT_CONNNECTION_LOST = "connnection:lost" 
     EVT_SIGNED_ON = "irc:signed_on"
     EVT_JOINED = "irc:joined"
-    EVT_PRIVMSG = "irc;privmsg"
+    EVT_PRIVMSG = "irc:privmsg"
     EVT_ACTION = "irc:action"
     EVT_IRC_NICK = "irc:nick"
 

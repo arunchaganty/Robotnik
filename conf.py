@@ -6,13 +6,15 @@ auth = ("Rob0tnik", "")
 channels = ["#iitm-linux"]
 cmd_char = "!"
 
+logdir = "logs"
+
 db_host = "localhost"
 db_user = "root"
 db_pass = "teju"
 db_name = "arunchaganty"
 
 dispatches = [
-        ('.*', 'plugins.logger.log'),
+        ('irc:.*', 'plugins.logger.log'),
 ]
 
 commands = [
@@ -23,6 +25,8 @@ commands = [
         ('wiki', 'plugins.search.wiki'),
         ('wiki!', 'plugins.search.wiki_auto'),
         ('chuck', 'plugins.quote.chuck_norris'),
+        ('kstar.insert', 'plugins.quote.kstar_insert'),
+        ('kstar', 'plugins.quote.kstar'),
         ('linus', 'plugins.quote.linus'),
         ('rms', 'plugins.quote.rms'),
         ('starwars', 'plugins.quote.starwars'),

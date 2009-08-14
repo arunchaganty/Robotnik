@@ -11,24 +11,6 @@ from command import CommandCenter
 import time, sys
 import conf
 
-class MessageLogger:
-    """
-    An independent logger class (because separation of application
-    and protocol logic is a good thing).
-    """
-    def __init__(self, file):
-        self.file = file
-
-    def log(self, message):
-        """Write a message to the file."""
-        timestamp = time.strftime("[%H:%M:%S]", time.localtime(time.time()))
-        self.file.write('%s %s\n' % (timestamp, message))
-        self.file.flush()
-
-    def close(self):
-        self.file.close()
-
-
 class Bot(irc.IRCClient):
     """An IRC bot."""
     
@@ -75,6 +57,8 @@ class Bot(irc.IRCClient):
                     self.commander.commands = {}
                     self.commander.add_cmd (conf.commands)
                     msg = "Plugins reloaded"
+                elif msg == "quit!":
+                    reactor.stop()
                 else:
                     msg = "Hello :-)"
             else:
@@ -87,6 +71,7 @@ class Bot(irc.IRCClient):
         if msg.startswith(self.nickname + ":"):
             msg = "%s: I am an awesome experiment in human-cyborg relations. Worship me!" % user
             self.msg(channel, msg)
+            self.dispatcher.dispatch (self.dispatcher.EVT_PRIVMSG, [channel, conf.auth[0], msg,])
 
         if msg.startswith (conf.cmd_char):
             msg = msg[len(conf.cmd_char):]
@@ -98,6 +83,7 @@ class Bot(irc.IRCClient):
 
             for reply in replies:
                 self.msg(channel, reply)
+                self.dispatcher.dispatch (self.dispatcher.EVT_PRIVMSG, [channel, conf.auth[0], reply,])
 
     def action(self, user, channel, msg):
         """This will get called when the bot sees someone do an action."""
