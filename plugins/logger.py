@@ -19,6 +19,7 @@ def init ():
 # Store one log file per 
 def log (channel=None, user=None, msg=""):
     global should_log,files
+    global date_current
     if channel == None or channel == "AUTH":
         channel = "Server"
 
@@ -28,14 +29,14 @@ def log (channel=None, user=None, msg=""):
         fname = os.path.join(conf.logdir,"%s-%s.log"%(channel,date_current.isoformat()))
         files[channel] = open(fname, "a")
     elif datetime.date.today() > date_current:
-            date_current = datetime.date.today()
-            files[channel].close()
-            fname = os.path.join(conf.logdir,"%s-%s.log"%(channel,date_current.isoformat()))
-            files[channel] = open(fname, "a")
+        date_current = datetime.date.today()
+        files[channel].close()
+        fname = os.path.join(conf.logdir,"%s-%s.log"%(channel,date_current.isoformat()))
+        files[channel] = open(fname, "a")
 
     # Auto-buffered
     if should_log:
-        time_str = datetime.datetime.now().time.strftime("%H:%M:%S")
+        time_str = datetime.datetime.now().strftime("%H:%M:%S")
         if user:
             files[channel].write("[%s]\t%s: %s\n"%(time_str,user, msg))
         else:
