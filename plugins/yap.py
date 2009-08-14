@@ -12,7 +12,7 @@ def slap (data = None):
     """Slap someone with something"""
     try:
         quote = db.query ("SELECT `slap` FROM `%s` ORDER BY RAND() LIMIT 1"%("bot_slaps"))
-        return "%s %s"%(data, quote[0][0])
+        return "slaps %s with %s"%(data, quote[0][0])
     except db.mdb.ProgrammingError:
         return "Error retrieving slap"
 
