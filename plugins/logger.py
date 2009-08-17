@@ -1,7 +1,11 @@
 """
 Logger: Keeps log
 
-Using single text file
+Log file format = <channel>-<date>.log
+
+Future Ideas:
+1) Maintain statistics about users (whois), nick changes
+
 """
 
 import os, datetime
@@ -11,12 +15,10 @@ should_log = True
 files = {}
 date_current = datetime.date.today()
 
-# TODO call on all plugins
 def init ():
     global files
     files = {}
 
-# Store one log file per 
 def log (channel=None, user=None, msg=""):
     global should_log,files
     global date_current
@@ -24,6 +26,7 @@ def log (channel=None, user=None, msg=""):
         channel = "Server"
 
 
+    # Check date - if it has changed, switch to a new file
     if not files.has_key(channel):
         date_current = datetime.date.today()
         fname = os.path.join(conf.logdir,"%s-%s.log"%(channel,date_current.isoformat()))
